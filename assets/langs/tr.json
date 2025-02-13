@@ -1,0 +1,17 @@
+{
+    "title":"Başlık",
+    "username":"Kullanıcı Adı",
+    "password":"Şifre",
+    "loginButton":"Giriş Yap",
+    "onboardFirstTitle":"Bir Oyun Seç",
+    "onboardHeadLine":"Dereceni ve Bilgilerini Gir Takımını Kur!",
+    "onboardSecondtTitle":"Oyundaki Adını veya Davet Kodunu Gir",
+    "onboardFourthTitle":"Eşleşmeye Artık Hazırsın!",
+    "nextText":"Devam Et",
+    "onboardSkipPageTitle":"Atla",
+    "onboardThirdTitle":"Derecene Uygun Takım Arkadaşları Bul!",
+    "lolGrandMasterRank":"Üstatlık",
+    "lolMasterRank":"Ustalık",
+    "lolDiamondRank":"Elmas",
+    "findTeam":"Oyuncu Bul"
+}

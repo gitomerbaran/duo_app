@@ -1,0 +1,17 @@
+{
+    "title":"Title",
+    "username":"Username",
+    "password":"Password",
+    "loginButton":"Login",
+    "onboardFirstTitle":"Choose a Game",
+    "onboardHeadLine":"Enter Your Rank and Information, Build Your Team!",
+    "onboardSecondtTitle":"Enter Your In-Game Name or Invitation Code",
+    "onboardFourthTitle":"You're Now Ready to Match!",
+    "nextText":"Next",
+    "onboardSkipPageTitle":"Skip",
+    "onboardThirdTitle":"Find Teammates Suitable for Your Rank!",
+    "lolGrandMasterRank":"Grand Master",
+    "lolMasterRank":"Master",
+    "lolDiamondRank":"Diamond",
+    "findTeam":"Find Player"
+}

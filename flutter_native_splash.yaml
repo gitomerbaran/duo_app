@@ -1,0 +1,21 @@
+flutter_native_splash:
+  # Arka plan olarak tam ekran kaplayan bir görsel kullanıyoruz
+  background_image: "assets/image/splash.png"
+
+  # Eğer ayrı bir logo eklemek istiyorsan, `image` alanını kullanabilirsin.
+  # Ancak sadece tam ekran bir görüntü istiyorsan bunu kaldırabilirsin.
+  #image: assets/image/splash.png 
+
+  android_12:
+    # Android 12 ve üstü için de tam ekran arka plan ekleyelim
+    background_image: "assets/image/splash.png"
+
+  # iOS, Android ve Web'de splash'ı aktif et
+  android: true
+  ios: true
+  web: true
+
+  # Görüntünün konumlandırmasını tüm ekranı kaplayacak şekilde ayarla
+  android_gravity: fill
+  ios_content_mode: scaleAspectFill
+  web_image_mode: cover
