@@ -1,5 +1,5 @@
-import 'package:duo_app/core/constants/enums/language_code_enums.dart';
 import 'package:flutter/material.dart';
+import '../constants/enums/language_code_enums.dart';
 
 extension LanguageCodeExtension on LanguageCodeEnum {
   static final List<Locale> supportedLocales = [

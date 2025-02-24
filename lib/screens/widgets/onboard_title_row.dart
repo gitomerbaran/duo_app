@@ -1,9 +1,7 @@
-
-import 'package:duo_app/core/extensions/_core_extension_exports.dart';
 import 'package:flutter/material.dart';
-
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_fonts.dart';
+import '../../core/extensions/context_extension.dart';
 
 class OnboardTitleRow extends StatelessWidget {
   const OnboardTitleRow({super.key, required this.number, required this.title});

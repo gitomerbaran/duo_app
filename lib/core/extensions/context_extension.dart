@@ -17,9 +17,11 @@ extension MediaQueryExtension on BuildContext {
 
   double get mediumValue => height * 0.04;
   double get mediumValueSecond => height * 0.05;
+  double get mediumValueThird => height * 0.075;
 
   double get highValue => height * 0.1;
   double get largeValue => height * 0.2;
+  double get largeValueSecond => height * 0.25;
 
   //widht
   double get lowValueWidht => width * 0.1;
@@ -56,6 +58,8 @@ extension PaddingExtensionSymetric on BuildContext {
       EdgeInsets.symmetric(horizontal: normalValue);
   EdgeInsets get paddingMediumHorizontal =>
       EdgeInsets.symmetric(horizontal: mediumValue);
+  EdgeInsets get paddingMediumSecondHorizontal =>
+      EdgeInsets.symmetric(horizontal: highValue / 1.5);
   EdgeInsets get paddingHighHorizontal =>
       EdgeInsets.symmetric(horizontal: highValue);
 }

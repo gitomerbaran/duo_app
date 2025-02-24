@@ -1,4 +1,5 @@
-import 'package:duo_app/core/constants/enums/api_enums.dart';
+
+import '../constants/enums/api_enums.dart';
 
 extension ApiExtension on ApiEnums {
   enumToURL() {

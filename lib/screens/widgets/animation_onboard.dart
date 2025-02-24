@@ -1,8 +1,7 @@
-import 'package:duo_app/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
-
 import '../../core/theme/app_fonts.dart';
 import '../../core/utils/icon_manager.dart';
+import '../../core/extensions/context_extension.dart';
 
 class AnimationGameList extends StatelessWidget {
   const AnimationGameList({

@@ -2,7 +2,8 @@
     "title":"Title",
     "username":"Username",
     "password":"Password",
-    "loginButton":"Login",
+    "loginButton":"Login",   
+    "register":"Sign Up",
     "onboardFirstTitle":"Choose a Game",
     "onboardHeadLine":"Enter Your Rank and Information, Build Your Team!",
     "onboardSecondtTitle":"Enter Your In-Game Name or Invitation Code",
@@ -13,5 +14,16 @@
     "lolGrandMasterRank":"Grand Master",
     "lolMasterRank":"Master",
     "lolDiamondRank":"Diamond",
-    "findTeam":"Find Player"
+    "findTeam":"Find Player",
+    "mail":"Mail",
+    "rePassword":"Re-enter password",
+    "registerTitle":"Sign Up - Create Your Team",
+    "registerLoginTitle":"Have an account? Log in",
+    "passwordSubtitle":"Your password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "mailValidateTitle":"Enter the 4-digit verification code sent to your email.",
+    "confirm":"Confirm", 
+    "sendCodeTitle": "Please wait for a new code: ",
+    "sendNewCode": "Send New Code",
+    "second": "Second",
+    "codeExpired": "A new code can be sent"
 }

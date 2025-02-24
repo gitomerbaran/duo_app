@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:duo_app/screens/controllers/language_controller.dart';
-import 'package:duo_app/core/dependency_injection/di.dart';
-import 'package:duo_app/core/navigate/navigate_services.dart';
-import 'package:duo_app/core/localization/app_strings_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../controllers/language_notifier.dart';
+import '../dependency_injection/di.dart';
+import '../navigate/navigate_services.dart';
+import '_localization_exports.dart';
 
 class AppStrings {
   final Locale _locale;
@@ -40,19 +40,28 @@ class AppStrings {
   String? get password => _localizedStrings['password'];
   String? get loginButton => _localizedStrings['loginButton'];
   String? get onboardHeadLine => _localizedStrings['onboardHeadLine'];
-
   String? get onboardFirstTitle => _localizedStrings['onboardFirstTitle'];
   String? get onboardSecondtTitle => _localizedStrings['onboardSecondtTitle'];
   String? get onboardThirdTitle => _localizedStrings['onboardThirdTitle'];
   String? get onboardFourthTitle => _localizedStrings['onboardFourthTitle'];
   String? get nextText => _localizedStrings['nextText'];
   String? get onboardSkipPageTitle => _localizedStrings['onboardSkipPageTitle'];
-    String? get lolDiamondRank => _localizedStrings['lolDiamondRank'];
-      String? get lolMasterRank => _localizedStrings['lolMasterRank'];
-
+  String? get lolDiamondRank => _localizedStrings['lolDiamondRank'];
+  String? get lolMasterRank => _localizedStrings['lolMasterRank'];
   String? get lolGrandMasterRank => _localizedStrings['lolGrandMasterRank'];
-    String? get findTeam => _localizedStrings['findTeam'];
-
-
+  String? get findTeam => _localizedStrings['findTeam'];
+  String? get mail => _localizedStrings['mail'];
+  String? get register => _localizedStrings['register'];
+  String? get rePassword => _localizedStrings['rePassword'];
+  String? get registerTitle => _localizedStrings['registerTitle'];
+  String? get registerLoginTitle => _localizedStrings['registerLoginTitle'];
+  String? get passwordSubtitle => _localizedStrings['passwordSubtitle'];
+  String? get mailValidateTitle => _localizedStrings['mailValidateTitle'];
+  String? get confirm => _localizedStrings['confirm'];
+  String? get sendNewCode => _localizedStrings['sendNewCode'];
+  String? get sendCodeTitle => _localizedStrings['sendCodeTitle'];
+  String? get second => _localizedStrings['second'];
+    String? get codeExpired => _localizedStrings['codeExpired'];
+ 
 
 }

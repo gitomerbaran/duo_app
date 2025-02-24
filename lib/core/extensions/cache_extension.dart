@@ -1,4 +1,5 @@
-import 'package:duo_app/core/constants/enums/cache_enums.dart';
+
+import '../constants/enums/cache_enums.dart';
 
 /// The extension [CacheExtension] on [CacheEnums] syntax in Dart is used to add new
 /// functionality or methods to an existing class or enum without modifying the original class or enum

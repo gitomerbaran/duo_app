@@ -1,6 +1,8 @@
-import 'package:duo_app/core/constants/app/app_constants.dart';
+import '../constants/app/app_constants.dart';
 
 extension StringExtension on String {
-  String? get emailValidate =>
-      contains(RegExp(AppConstants.EMAIL_REGEX)) ? null : "Email Failure";
+  bool get isValidEmail => RegExp(AppConstants.MAIL_REGEX).hasMatch(this);
+
+  bool get isValidPassword =>
+      RegExp(AppConstants.PASSWORD_REGEX).hasMatch(this);
 }

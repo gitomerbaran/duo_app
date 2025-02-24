@@ -1,20 +1,20 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:duo_app/core/constants/app/app_constants.dart';
-import 'package:duo_app/core/constants/navigate/navigate_constants.dart';
-import 'package:duo_app/core/extensions/context_extension.dart';
-import 'package:duo_app/core/localization/app_strings.dart';
-import 'package:duo_app/core/navigate/navigate_services.dart';
-import 'package:duo_app/core/theme/app_fonts.dart';
-import 'package:duo_app/core/utils/icon_manager.dart';
-import 'package:duo_app/screens/controllers/onboard_controller.dart';
-import 'package:duo_app/screens/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../core/constants/app/app_constants.dart';
+import '../../core/constants/navigate/navigate_constants.dart';
+import '../../core/controllers/onboard_controller.dart';
+import '../../core/localization/app_strings.dart';
+import '../../core/navigate/navigate_services.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_fonts.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/utils/icon_manager.dart';
 import '../widgets/animation_onboard.dart';
+import '../widgets/button.dart';
 import '../widgets/onboard_title_row.dart';
+import '../../core/extensions/context_extension.dart';
 
 class OnboardScreen extends StatefulWidget {
   const OnboardScreen({super.key});
@@ -57,20 +57,20 @@ class _OnboardScreenState extends State<OnboardScreen>
       duration: const Duration(seconds: 5),
     )..repeat(reverse: true);
 
-    _startLoop(); // Tek bir fonksiyonla tüm işlemleri yönetiyoruz
+    _startLoop(); // All animations are managed here
   }
 
   void _startLoop() {
     _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
-      // Oyun seçim index'ini değiştir
+      // changing game opt animate
       selectedIndex.value = (selectedIndex.value + 1) % _games.length;
 
-      // Buton animasyonunu tetikle
+      //Button animation trigger
       buttonAnimation.value = !buttonAnimation.value;
 
-      // Sayfa geçişlerini yönet
+      // page rotation option
       if (timer.tick % 2 == 0) {
-        // Her 4 saniyede bir sayfa değiştir
+        // Change the page every 4 seconds
         int nextPage = (_pageController.page?.toInt() ?? 0) + 1;
         if (nextPage >= 2) nextPage = 0;
 
@@ -87,7 +87,7 @@ class _OnboardScreenState extends State<OnboardScreen>
   void dispose() {
     _controller.dispose();
     _pageController.dispose();
-    _timer?.cancel(); // Timer'ı iptal edelim ki gereksiz çalışmasın
+    _timer?.cancel(); // cancel the Timer so that it doesn't work unnecessarily.
     buttonAnimation.dispose();
     selectedIndex.dispose();
     super.dispose();

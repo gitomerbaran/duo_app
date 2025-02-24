@@ -1,6 +1,6 @@
-import 'package:duo_app/core/theme/app_colors.dart';
-import 'package:duo_app/core/theme/app_fonts.dart';
 import 'package:flutter/material.dart';
+import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_fonts.dart';
 
 class CustomButton extends StatelessWidget {
   final VoidCallback function;

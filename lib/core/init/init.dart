@@ -1,33 +1,21 @@
-import 'package:duo_app/core/cache/hive.dart';
-import 'package:duo_app/core/constants/enums/cache_enums.dart';
-import 'package:duo_app/core/constants/navigate/navigate_constants.dart';
-import 'package:duo_app/core/dependency_injection/di.dart';
-import 'package:duo_app/core/navigate/navigate_services.dart';
+import 'package:flutter/material.dart';
+import '../cache/hive.dart';
+import '../constants/enums/cache_enums.dart';
+import '../constants/navigate/navigate_constants.dart';
+import '../dependency_injection/di.dart';
+import '../navigate/navigate_services.dart';
 
 class ApplicationInitializing {
-  /// Singleton Instance
-  static final ApplicationInitializing _instance =
-      ApplicationInitializing._internal();
+  get instance => _initialize();
 
-  /// Singleton Factory
-  factory ApplicationInitializing() => _instance;
-
-  /// Private Constructor
-  ApplicationInitializing._internal();
-
-  /// Uygulama Başlangıç İşlemleri
-  Future<void> initialize() async {
+  /// Initializing process
+  Future<void> _initialize() async {
     bool data = await onboardCacheControl();
 
-    print(
-        "📍 Yönlendirilen Sayfa: ${data ? NavigateConstants.LOGIN : NavigateConstants.ONBOARD}");
-
     if (data) {
-      print("🔵 LOGIN sayfasına yönlendiriliyor...");
       NavigationService.instance
           .navigateToPageClear(path: NavigateConstants.LOGIN);
     } else {
-      print("🟠 ONBOARD sayfasına yönlendiriliyor...");
       NavigationService.instance
           .navigateToPageClear(path: NavigateConstants.ONBOARD);
     }
@@ -41,16 +29,16 @@ class ApplicationInitializing {
 
     bool onboardStatus = result.fold(
       (failure) {
-        print("❌ Hive'dan veri okuma hatası: $failure");
+        debugPrint("❌ Hive'dan veri okuma hatası: $failure");
         return false;
       },
       (data) {
-        print("✅ Hive'dan gelen veri: $data");
+        debugPrint("✅ Hive'dan gelen veri: $data");
         return data == true;
       },
     );
 
-    print("🧐 Onboard Cache Değeri: $onboardStatus"); // Log ekledik
+    debugPrint(" Onboard Cache Değeri: $onboardStatus");
 
     return onboardStatus;
   }

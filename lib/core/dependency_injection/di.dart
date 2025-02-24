@@ -1,8 +1,8 @@
-import 'package:duo_app/core/cache/hive.dart';
-import 'package:duo_app/screens/controllers/theme_controller.dart';
 import 'package:get_it/get_it.dart';
 import '../cache/cache_service.dart';
-import '../../screens/controllers/language_controller.dart';
+import '../cache/hive.dart';
+import '../controllers/language_notifier.dart';
+import '../controllers/theme_notifier.dart';
 
 final getIt = GetIt.instance;
 

@@ -1,15 +1,12 @@
 import 'dart:io';
-import 'package:duo_app/core/cache/hive.dart';
-import 'package:duo_app/core/constants/enums/cache_enums.dart';
-import 'package:duo_app/core/constants/enums/language_code_enums.dart';
-import 'package:duo_app/core/dependency_injection/di.dart';
-import 'package:duo_app/core/errors/failure_types/failure_types.dart';
-import 'package:duo_app/core/localization/app_strings.dart';
-import 'package:duo_app/core/localization/language_code.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-
-import '../../core/models/lang/language_model.dart';
+import '../cache/hive.dart';
+import '../constants/enums/cache_enums.dart';
+import '../constants/enums/language_code_enums.dart';
+import '../errors/failure_types/failure_types.dart';
+import '../localization/_localization_exports.dart';
+import '../models/lang/language_model.dart';
 
 class LanguageNotifier extends StateNotifier<LanguageSettings> {
   LanguageNotifier(this._hiveSecureService)
@@ -25,7 +22,7 @@ class LanguageNotifier extends StateNotifier<LanguageSettings> {
     final languageSettingsEither =
         await _hiveSecureService.getData(CacheEnums.LANGUAGE_SETTINGS);
 
-    await languageSettingsEither.fold(
+     languageSettingsEither.fold(
       (failure) async => await _setDefaultLanguageSettings(deviceLocalLanguage),
       (data) => _languageSettings = LanguageSettings.fromJson(data),
     );
@@ -88,7 +85,3 @@ class LanguageNotifier extends StateNotifier<LanguageSettings> {
   LanguageCodeEnum getLanguageCode() => _languageSettings.languageCode;
 }
 
-final languageNotifierProvider =
-    StateNotifierProvider<LanguageNotifier, LanguageSettings>((ref) {
-  return LanguageNotifier(getIt<HiveSecureService>());
-});

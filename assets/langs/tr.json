@@ -3,6 +3,7 @@
     "username":"Kullanıcı Adı",
     "password":"Şifre",
     "loginButton":"Giriş Yap",
+    "register":"Kayıt Ol",
     "onboardFirstTitle":"Bir Oyun Seç",
     "onboardHeadLine":"Dereceni ve Bilgilerini Gir Takımını Kur!",
     "onboardSecondtTitle":"Oyundaki Adını veya Davet Kodunu Gir",
@@ -13,5 +14,16 @@
     "lolGrandMasterRank":"Üstatlık",
     "lolMasterRank":"Ustalık",
     "lolDiamondRank":"Elmas",
-    "findTeam":"Oyuncu Bul"
+    "findTeam":"Oyuncu Bul",
+    "mail":"E-posta",
+    "rePassword":"Şifrenizi Tekrar Girin",
+    "registerTitle":"Kayıt Ol - Takımını Kur",
+    "registerLoginTitle":"Hesabın var mı? Giriş yap",
+    "passwordSubtitle":"Şifreniz en az 8 karakter, bir büyük harf, bir küçük harf, bir rakam ve bir özel karakter içermelidir",
+    "mailValidateTitle":"E-postanıza gönderilen 4 haneli doğrulama kodunu girin",
+    "confirm":"Onayla",
+    "sendCodeTitle":"Yeni kod için lütfen bekleyiniz: ",
+    "sendNewCode:":"Yeni Kod Gönder",
+    "second":"Saniye",
+    "codeExpired":"Yeni kod gönderilebilir"
 }

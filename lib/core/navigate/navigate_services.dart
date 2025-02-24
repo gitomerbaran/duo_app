@@ -1,6 +1,5 @@
-import 'package:duo_app/core/navigate/inavigate.dart';
 import 'package:flutter/material.dart';
-
+import '../navigate/inavigate.dart';
 class NavigationService implements INavigateServices {
   static final NavigationService _instance = NavigationService._init();
   static NavigationService get instance => _instance;
@@ -12,7 +11,6 @@ class NavigationService implements INavigateServices {
 
   @override
   Future<void> navigateToPage({String? path, Object? data}) async {
-    print("🛑 NavigationService: Yönlendirme yapılıyor -> $path");
 
     if (navigatorKey.currentState == null) {
       
@@ -24,11 +22,8 @@ class NavigationService implements INavigateServices {
 
   @override
   Future<void> navigateToPageClear({String? path, Object? data}) async {
-    print("🛑 NavigationService: Sayfa temizlenerek yönlendiriliyor -> $path");
 
     if (navigatorKey.currentState == null) {
-      print(
-          "❌ HATA: navigatorKey.currentState NULL olduğu için yönlendirme başarısız!");
       return;
     }
 

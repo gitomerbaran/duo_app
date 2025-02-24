@@ -1,6 +1,6 @@
-import 'package:duo_app/core/constants/enums/failure_types.dart';
-import 'package:duo_app/core/errors/failures/failure.dart';
 import 'package:flutter/material.dart';
+import '../../constants/enums/failure_types.dart';
+import '../failures/failure.dart';
 
 class ServerFailure<T> extends Failure<T> {
   const ServerFailure({
@@ -16,7 +16,8 @@ class ServerFailure<T> extends Failure<T> {
 }
 
 class CacheFailure<T> extends Failure<T> {
-  const CacheFailure(String s, {
+  const CacheFailure(
+    String text, {
     String? details,
     T? errorObject,
     List<VoidCallback>? actions,
@@ -29,7 +30,8 @@ class CacheFailure<T> extends Failure<T> {
 }
 
 class LanguageFailure<T> extends Failure<T> {
-  const LanguageFailure(String s, {
+  const LanguageFailure(
+    String text, {
     String? details,
     T? errorObject,
     List<VoidCallback>? actions,

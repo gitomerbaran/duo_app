@@ -47,7 +47,7 @@ import 'package:flutter/material.dart';
 
 /// **Uygulamanın renk paleti**
 class AppColors {
-  static Color splashColor() => const Color(0xFF0A192F);
+  static Color splashColor(BuildContext context) => const Color(0xFF0A192F);
   static Color onBoardNickName(BuildContext context) =>
       Theme.of(context).colorScheme.primaryContainer;
   static Color buttonColor(BuildContext context) =>

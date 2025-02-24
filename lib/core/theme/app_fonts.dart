@@ -1,6 +1,6 @@
-import 'package:duo_app/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../extensions/context_extension.dart';
 
 /// **Uygulama içinde kullanılacak tüm font stilleri**
 class AppFonts {
@@ -41,12 +41,12 @@ class AppFonts {
       );
 
   TextStyle get buttonText => GoogleFonts.roboto(
-        fontSize: context.normalValue,
+        fontSize: context.lowValueSecond,
         fontWeight: FontWeight.w500,
       );
 
   TextStyle get caption => GoogleFonts.roboto(
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
+        fontSize: context.lowValueSecond,
+        fontWeight: FontWeight.w300,
       );
 }

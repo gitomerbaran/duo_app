@@ -1,4 +1,4 @@
-import 'package:duo_app/core/constants/icons/icon_constants.dart';
+import '../constants/icons/icon_constants.dart';
 
 class IconManager {
   static IconManager? _instance;

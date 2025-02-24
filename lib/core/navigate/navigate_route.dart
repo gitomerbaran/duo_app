@@ -1,7 +1,10 @@
-import 'package:duo_app/screens/login/login_screen.dart';
-import 'package:duo_app/screens/onboard/onboard.dart';
-import 'package:duo_app/screens/splash/splash_screen.dart';
-import 'package:flutter/material.dart';
+import 'package:duo_app/screens/register/mail_validation_screen.dart';
+import 'package:flutter/cupertino.dart';
+import '../../screens/home/home_screen.dart';
+import '../../screens/login/login_screen.dart';
+import '../../screens/onboard/onboard.dart';
+import '../../screens/register/register_screen.dart';
+import '../../screens/splash/splash_screen.dart';
 import '../../screens/widgets/not_found_page.dart';
 import '../constants/navigate/navigate_constants.dart';
 
@@ -20,12 +23,22 @@ class NavigationRoute {
 
       case NavigateConstants.ONBOARD:
         return normalNavigation(const OnboardScreen());
+
+      case NavigateConstants.HOME:
+        return normalNavigation(const HomeScreen());
+
+      case NavigateConstants.REGISTER:
+        return normalNavigation(const RegisterScreen());
+
+      case NavigateConstants.MAIL_VALIDATE:
+        return normalNavigation(const MailValidationScreen());
+
       default:
-        return MaterialPageRoute(builder: (context) => const NotFoundPage());
+        return CupertinoPageRoute(builder: (context) => const NotFoundPage());
     }
   }
 
-  MaterialPageRoute normalNavigation(Widget widget) {
-    return MaterialPageRoute(builder: (context) => widget);
+  CupertinoPageRoute normalNavigation(Widget widget) {
+    return CupertinoPageRoute(builder: (context) => widget);
   }
 }

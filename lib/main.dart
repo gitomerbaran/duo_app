@@ -1,9 +1,10 @@
+import 'package:duo_app/screens/widgets/progress_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'core/controllers/providers/theme_provider.dart';
 import 'core/dependency_injection/di.dart';
 import 'core/theme/app_theme.dart';
-import 'screens/controllers/theme_controller.dart';
 import 'core/localization/app_strings.dart';
 import 'core/navigate/navigate_route.dart';
 import 'core/navigate/navigate_services.dart';
@@ -25,6 +26,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeNotifierProvider);
+    final progress = ref.watch(progressProvider);
 
     return MaterialApp(
       title: 'Duo App',
@@ -44,6 +46,16 @@ class MyApp extends ConsumerWidget {
         Locale('tr', ''),
         Locale('en', ''),
       ],
+      builder: (context, child) {
+        return ProgressOverlay(
+          isLoading: progress,
+          child: child!, 
+        );
+      },
     );
   }
 }
+
+final progressProvider = StateProvider<bool>((ref) {
+  return false;
+});

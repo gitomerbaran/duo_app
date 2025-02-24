@@ -48,6 +48,7 @@ dependencies:
   rive: ^0.13.20
   animated_text_kit: ^4.2.3
   flutter_native_splash: ^2.4.4
+  flutter_otp_text_field: ^1.4.0+2
   
 
 dev_dependencies:

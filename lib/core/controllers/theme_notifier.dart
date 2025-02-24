@@ -1,15 +1,14 @@
-import 'package:duo_app/core/cache/hive.dart';
-import 'package:duo_app/core/constants/enums/cache_enums.dart';
-import 'package:duo_app/core/constants/enums/theme_enums.dart';
-import 'package:duo_app/core/dependency_injection/di.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../cache/hive.dart';
+import '../constants/enums/cache_enums.dart';
+import '../constants/enums/theme_enums.dart';
+import 'base_notifier.dart';
 
-class ThemeNotifier extends StateNotifier<ThemeMode> {
+class ThemeNotifier extends BaseController<ThemeMode> {
   final HiveSecureService _hiveSecureService;
 
   ThemeNotifier(this._hiveSecureService) : super(ThemeMode.system) {
-    _loadTheme(); // 🔹 Uygulama açıldığında kayıtlı temayı yükle
+    _loadTheme();
   }
 
   /// **Kayıtlı temayı Hive'dan yükle**
@@ -25,7 +24,7 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
       state = ThemeMode.system;
     }
 
-    print("Hive'dan Okunan Tema: $state ✅");
+    debugPrint("Hive'dan Okunan Tema: $state ✅");
   }
 
   /// **Temayı değiştir ve kaydet**
@@ -35,12 +34,7 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
     _hiveSecureService.addData(
         CacheEnums.THEMA_SETTINGS, state == ThemeMode.dark ? "dark" : "light");
 
-    print("Tema Değiştirildi: $state ✅");
+    debugPrint("Tema Değiştirildi: $state ✅");
   }
 }
 
-/// **Riverpod için Tema Sağlayıcı**
-final themeNotifierProvider =
-    StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) {
-  return ThemeNotifier(getIt<HiveSecureService>());
-});

@@ -1,5 +1,4 @@
-
-import 'package:duo_app/core/constants/assets/assets_constants.dart';
+import '../constants/assets/assets_constants.dart';
 
 class ImageManager {
   static ImageManager? _instance;

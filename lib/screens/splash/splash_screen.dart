@@ -1,29 +1,28 @@
-import 'package:duo_app/core/theme/app_colors.dart';
-import 'package:duo_app/core/utils/image_manager.dart';
 import 'package:flutter/material.dart';
-
 import '../../core/init/init.dart';
+import '../../core/theme/app_colors.dart';
+import '../../core/utils/image_manager.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  SplashScreenState createState() => SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () async {
-      await ApplicationInitializing().initialize();
+    Future.delayed(Duration(seconds: 2), () async {
+      await ApplicationInitializing().instance;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.splashColor(),
+      backgroundColor: AppColors.splashColor(context),
       body: Stack(
         children: [
           Positioned.fill(

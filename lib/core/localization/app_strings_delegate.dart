@@ -1,6 +1,6 @@
-import 'package:duo_app/core/constants/enums/language_code_enums.dart';
-import 'package:duo_app/core/localization/app_strings.dart';
+import 'package:duo_app/core/localization/_localization_exports.dart';
 import 'package:flutter/material.dart';
+import '../constants/enums/language_code_enums.dart';
 
 class AppStringsDelegate extends LocalizationsDelegate<AppStrings> {
   const AppStringsDelegate();

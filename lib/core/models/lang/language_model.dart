@@ -1,7 +1,7 @@
 import 'dart:convert';
+import '../../constants/enums/language_code_enums.dart';
+import '../../localization/language_code.dart';
 
-import 'package:duo_app/core/constants/enums/language_code_enums.dart';
-import 'package:duo_app/core/localization/language_code.dart';
 
 class LanguageSettings {
   final bool isChangeSettings;
