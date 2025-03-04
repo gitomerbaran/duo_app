@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../core/constants/app/app_constants.dart';
 import '../../core/constants/navigate/navigate_constants.dart';
-import '../../core/controllers/onboard_controller.dart';
+import '../../core/controllers/notifiers/onboard_controller.dart';
 import '../../core/localization/app_strings.dart';
 import '../../core/navigate/navigate_services.dart';
 import '../../core/theme/app_colors.dart';

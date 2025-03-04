@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/textfields_state_model.dart';
-import '../textfield_notifier.dart';
+import '../notifiers/textfield_notifier.dart';
 
 final textFieldProvider =
     StateNotifierProvider<TextFieldNotifier, TextFieldState>(

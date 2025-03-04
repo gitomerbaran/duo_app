@@ -10,6 +10,7 @@ class ApplicationInitializing {
 
   /// Initializing process
   Future<void> _initialize() async {
+
     bool data = await onboardCacheControl();
 
     if (data) {

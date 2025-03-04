@@ -1,4 +1,6 @@
+import 'package:duo_app/firebase_options.dart';
 import 'package:duo_app/screens/widgets/progress_overlay.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,7 +17,11 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await setupDependencies();
 
-  runApp(const ProviderScope(child: MyApp())); //
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  runApp(const ProviderScope(child: MyApp()));
 
   FlutterNativeSplash.remove();
 }
@@ -49,7 +55,7 @@ class MyApp extends ConsumerWidget {
       builder: (context, child) {
         return ProgressOverlay(
           isLoading: progress,
-          child: child!, 
+          child: child!,
         );
       },
     );

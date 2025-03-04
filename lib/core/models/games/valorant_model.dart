@@ -2,13 +2,14 @@ import '../../constants/enums/icon_enums.dart';
 import '../../utils/icon_manager.dart';
 import '../../extensions/asset_extension.dart';
 import '_game_model.dart';
+import '../../constants/game/game_constants.dart';
 
 class Valorant extends GameModel {
   final String nickName;
   final String server;
   final String? rank;
-  static final String _icon = IconManager.instance.toPng(IconEnums.CS2.getIcon);
-  static final String _gameName = "League of Legends";
+  static final String _icon = IconManager.instance.toPng(IconEnums.VALORANT.getIcon);
+  static final String _gameName =GameConstants.VALORANT;
    Valorant({
     required this.nickName,
     required this.server,

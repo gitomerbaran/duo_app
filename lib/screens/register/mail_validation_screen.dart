@@ -1,12 +1,17 @@
 import 'dart:async';
+import 'package:duo_app/core/constants/enums/text_field_enums.dart';
+import 'package:duo_app/core/controllers/providers/auth_provider.dart';
+import 'package:duo_app/core/controllers/providers/text_fields_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/constants/navigate/navigate_constants.dart';
 import '../../core/controllers/providers/mail_valide_provider.dart';
+import '../../core/dependency_injection/di.dart';
 import '../../core/localization/app_strings.dart';
 import '../../core/navigate/navigate_services.dart';
+import '../../core/services/auth/i_auth_services.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_fonts.dart';
 import '../widgets/button.dart';
@@ -34,12 +39,11 @@ class _MailValidationScreenState extends ConsumerState<MailValidationScreen> {
 
     // To log the Validate Code only once
     Future.microtask(() {
-      debugPrint(
-          "Code: ${ref.read(mailValidateProvider.notifier).getCode}");
+      debugPrint("Code: ${ref.read(mailValidateProvider.notifier).getCode}");
     });
   }
 
-  /// timer counter 
+  /// timer counter
   void _initializeCountdown() {
     setState(() {
       _remainingTime = 60;
@@ -77,6 +81,11 @@ class _MailValidationScreenState extends ConsumerState<MailValidationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = ref.read(textFieldProvider.notifier);
+    final mail = provider.getText(TextFieldEnums.MAIL_REGISTER);
+    final username = provider.getText(TextFieldEnums.USERNAME_REGISTER);
+    final password = provider.getText(TextFieldEnums.PASSWORD_REGISTER);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -109,6 +118,7 @@ class _MailValidationScreenState extends ConsumerState<MailValidationScreen> {
                       ),
                     ),
                     SizedBox(height: context.highValue),
+
                     /// Input
                     Center(
                       child: OtpTextField(
@@ -145,9 +155,9 @@ class _MailValidationScreenState extends ConsumerState<MailValidationScreen> {
                       ),
                     ),
                     SizedBox(height: context.lowValue),
-                    
+
                     // New code button
-                    
+
                     Center(
                       child: CustomTextButton(
                         color: _canResend ? null : Colors.grey,
@@ -168,18 +178,13 @@ class _MailValidationScreenState extends ConsumerState<MailValidationScreen> {
                     // Validate button
                     Center(
                       child: CustomButton(
-                        function: () {
-                          debugPrint(ref
-                              .read(mailValidateProvider.notifier)
-                              .isValidOtp()
-                              .toString());
+                        function: () async {
                           if (ref
                               .read(mailValidateProvider.notifier)
                               .isValidOtp()) {
-                            NavigationService.instance.navigateToPageClear(
-                              path: NavigateConstants.LOGIN,
-                            );
-                            ref.invalidate(mailValidateProvider);
+                            ref
+                                .read(authProvider.notifier)
+                                .registerUser(mail, password, username);
                           }
                         },
                         height: context.mediumValueSecond,

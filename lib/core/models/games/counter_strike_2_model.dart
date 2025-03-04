@@ -1,11 +1,13 @@
+
 import '../../constants/enums/icon_enums.dart';
+import '../../constants/game/game_constants.dart';
 import '../../utils/icon_manager.dart';
 import '_game_model.dart';
 import '../../extensions/asset_extension.dart';
 
 class CounterStrike2 extends GameModel {
   static final String _icon = IconManager.instance.toPng(IconEnums.CS2.getIcon);
-  static final String _gameName = "Counter Strike 2";
+  static final String _gameName = GameConstants.CS2;
   final String nickName;
 
   final String server;

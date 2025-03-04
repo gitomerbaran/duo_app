@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../controllers/language_notifier.dart';
+import '../controllers/notifiers/language_notifier.dart';
 import '../dependency_injection/di.dart';
 import '../navigate/navigate_services.dart';
 import '_localization_exports.dart';
@@ -61,7 +61,5 @@ class AppStrings {
   String? get sendNewCode => _localizedStrings['sendNewCode'];
   String? get sendCodeTitle => _localizedStrings['sendCodeTitle'];
   String? get second => _localizedStrings['second'];
-    String? get codeExpired => _localizedStrings['codeExpired'];
- 
-
+  String? get codeExpired => _localizedStrings['codeExpired'];
 }

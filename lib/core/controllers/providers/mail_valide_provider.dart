@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../mail_validate_notifier.dart';
+import '../notifiers/mail_validate_notifier.dart';
 import '../models/mail_validate_model.dart';
 
 final mailValidateProvider =
