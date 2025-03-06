@@ -24,6 +24,22 @@ class UserModel extends Equatable {
     );
   }
 
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      username: map['username'] as String,
+      userId: map['userId'] as String,
+      gameAccounts: List<String>.from(map['gameAccounts'] ?? []),
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'username': username,
+      'userId': userId,
+      'gameAccounts': gameAccounts,
+    };
+  }
+
   @override
   List<Object?> get props => [username, userId, gameAccounts];
 }

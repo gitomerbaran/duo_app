@@ -1,3 +1,4 @@
+import 'package:duo_app/core/controllers/providers/indicator_provider.dart';
 import 'package:duo_app/firebase_options.dart';
 import 'package:duo_app/screens/widgets/progress_overlay.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,7 +33,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeNotifierProvider);
-    final progress = ref.watch(progressProvider);
+    final progress = ref.watch(indicatorProvider);
 
     return MaterialApp(
       title: 'Duo App',
@@ -62,6 +63,3 @@ class MyApp extends ConsumerWidget {
   }
 }
 
-final progressProvider = StateProvider<bool>((ref) {
-  return false;
-});

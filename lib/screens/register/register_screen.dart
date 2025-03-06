@@ -1,16 +1,13 @@
-import 'package:duo_app/core/controllers/auth_control.dart';
-import 'package:duo_app/core/services/auth/firebase_auth_services.dart';
+import 'package:duo_app/core/controllers/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/constants/enums/text_field_enums.dart';
 import '../../core/constants/navigate/navigate_constants.dart';
-import '../../core/controllers/providers/mail_valide_provider.dart';
+import '../../core/controllers/auth_control.dart';
 import '../../core/controllers/providers/text_fields_provider.dart';
-import '../../core/dependency_injection/di.dart';
 import '../../core/extensions/context_extension.dart';
 import '../../core/localization/app_strings.dart';
 import '../../core/navigate/navigate_services.dart';
-import '../../core/services/auth/i_auth_services.dart';
 import '../../core/theme/app_fonts.dart';
 import '../widgets/button.dart';
 import '../widgets/gradient_background.dart';
@@ -22,8 +19,6 @@ class RegisterScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authService = getIt<AuthService>();
-
     bool passwordButton = ref.watch(showPassword);
     bool repasswordButton = ref.watch(showRePassword);
     String username = ref
@@ -35,9 +30,7 @@ class RegisterScreen extends ConsumerWidget {
     String password = ref
         .read(textFieldProvider.notifier)
         .getText(TextFieldEnums.PASSWORD_REGISTER);
-    String repassword = ref
-        .read(textFieldProvider.notifier)
-        .getText(TextFieldEnums.REPASSWORD_REGISTER);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -137,8 +130,7 @@ class RegisterScreen extends ConsumerWidget {
                     CustomButton(
                       function: () async {
                         /// Kayıt işlemi
-                        await _register(
-                            ref, authService, username, email, password);
+                        await _registerValidate(ref, username, email, password);
                       },
                       text: AppStrings.of().register!,
                       height: context.mediumValue,
@@ -150,7 +142,9 @@ class RegisterScreen extends ConsumerWidget {
                     CustomTextButton(
                       underline: true,
                       function: () {
-                        NavigationService.instance.navigateToPageClear(
+                        ref.invalidate(textFieldProvider);
+
+                        NavigationService.instance.navigateToPage(
                           path: NavigateConstants.LOGIN,
                         );
                       },
@@ -166,18 +160,24 @@ class RegisterScreen extends ConsumerWidget {
     );
   }
 
-  Future<void> _register(
+  /// Validate registration and proceed with OTP generation
+  Future<void> _registerValidate(
     WidgetRef ref,
-    IAuthService authService,
     String username,
     String email,
     String password,
   ) async {
-    if (AuthControl().registerControl(ref)) {
-      final otpCode = ref.read(mailValidateProvider.notifier).generateOtpCode();
-      debugPrint("OTP Code: $otpCode");
+    final authNotifier = ref.read(authProvider.notifier);
 
-      /// create otp code and navigate to validation screen
+    if (!AuthControl().registerControl(ref)) {
+      return;
+    }
+
+    final bool isUserValid =
+        await authNotifier.dbControl(email, password, username);
+
+    if (isUserValid) {
+      debugPrint(authNotifier.getCode);
       NavigationService.instance.navigateToPageClear(
         path: NavigateConstants.MAIL_VALIDATE,
       );

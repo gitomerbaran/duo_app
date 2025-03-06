@@ -1,5 +1,5 @@
 import 'package:duo_app/core/constants/enums/text_field_enums.dart';
-import 'package:duo_app/main.dart';
+import 'package:duo_app/core/controllers/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,7 +7,6 @@ import '../../core/constants/enums/image_enums.dart';
 import '../../core/constants/navigate/navigate_constants.dart';
 import '../../core/controllers/providers/text_fields_provider.dart';
 import '../../core/localization/app_strings.dart';
-import '../../core/models/user/user_model.dart';
 import '../../core/navigate/navigate_services.dart';
 import '../../core/utils/image_manager.dart';
 import '../widgets/button.dart';
@@ -45,8 +44,8 @@ class LoginScreen extends StatelessWidget {
                   Text(
                     AppConstants.APP_NAME,
                     style: GoogleFonts.openSans(
-                      shadows: [
-                        const Shadow(
+                      shadows: const [
+                        Shadow(
                           blurRadius: 0.2,
                           color: Colors.white,
                           offset: Offset(2, 0),
@@ -70,11 +69,11 @@ class LoginScreen extends StatelessWidget {
                   ),
                   SizedBox(height: context.mediumValueSecond),
 
-                  /// login button
+                  /// Login button.
                   const LoginButton(),
                   SizedBox(height: context.mediumValue),
 
-                  /// Register page navigate button
+                  /// Register page navigate button.
                   CustomTextButton(
                     underline: true,
                     function: () {
@@ -98,17 +97,26 @@ class LoginButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final authNotifier = ref.read(authProvider.notifier);
+    final username =
+        ref.read(textFieldProvider.notifier).getText(TextFieldEnums.USERNAME);
+    final password =
+        ref.read(textFieldProvider.notifier).getText(TextFieldEnums.PASSWORD);
+
     return CustomButton(
       function: () async {
-        //services code will be added
-        ref.read(progressProvider.notifier).state = true;
-        await Future.delayed(Duration(seconds: 2));
-        ref.read(progressProvider.notifier).state = false;
-        NavigationService.instance.navigateToPage(
-
-            /// index to data from service to UserModel
-            data: UserModel(username: "Rea", userId: "394579367"),
-            path: NavigateConstants.HOME);
+        final result = await authNotifier.loginUser(username, password);
+        result.fold(
+          (failure) {
+            debugPrint("❌ Login Failed: ${failure.errorMessage}");
+          },
+          (userModel) async {
+            NavigationService.instance.navigateToPageClear(
+              data: userModel,
+              path: NavigateConstants.HOME,
+            );
+          },
+        );
       },
       text: AppStrings.of().loginButton!,
       height: context.mediumValue,

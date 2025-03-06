@@ -3,7 +3,7 @@ import '../../constants/enums/failure_types.dart';
 import '../failures/failure.dart';
 
 class ServerFailure<T> extends Failure<T> {
-  const ServerFailure({
+  const ServerFailure(String s, {
     String? details,
     T? errorObject,
     List<VoidCallback>? actions,

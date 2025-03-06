@@ -1,17 +1,14 @@
 import 'dart:async';
-import 'package:duo_app/core/constants/enums/text_field_enums.dart';
-import 'package:duo_app/core/controllers/providers/auth_provider.dart';
-import 'package:duo_app/core/controllers/providers/text_fields_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../core/constants/enums/text_field_enums.dart';
 import '../../core/constants/navigate/navigate_constants.dart';
-import '../../core/controllers/providers/mail_valide_provider.dart';
-import '../../core/dependency_injection/di.dart';
+import '../../core/controllers/providers/auth_provider.dart';
+import '../../core/controllers/providers/text_fields_provider.dart';
 import '../../core/localization/app_strings.dart';
 import '../../core/navigate/navigate_services.dart';
-import '../../core/services/auth/i_auth_services.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_fonts.dart';
 import '../widgets/button.dart';
@@ -36,11 +33,6 @@ class _MailValidationScreenState extends ConsumerState<MailValidationScreen> {
   void initState() {
     super.initState();
     _initializeCountdown();
-
-    // To log the Validate Code only once
-    Future.microtask(() {
-      debugPrint("Code: ${ref.read(mailValidateProvider.notifier).getCode}");
-    });
   }
 
   /// timer counter
@@ -69,7 +61,7 @@ class _MailValidationScreenState extends ConsumerState<MailValidationScreen> {
   void _onResendCode() {
     if (_canResend) {
       _initializeCountdown();
-      ref.read(mailValidateProvider.notifier).regenerateOtp();
+      ref.read(authProvider.notifier).reGenerateCode();
     }
   }
 
@@ -81,10 +73,11 @@ class _MailValidationScreenState extends ConsumerState<MailValidationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = ref.read(textFieldProvider.notifier);
-    final mail = provider.getText(TextFieldEnums.MAIL_REGISTER);
-    final username = provider.getText(TextFieldEnums.USERNAME_REGISTER);
-    final password = provider.getText(TextFieldEnums.PASSWORD_REGISTER);
+    final textField = ref.read(textFieldProvider.notifier);
+    final mail = textField.getText(TextFieldEnums.MAIL_REGISTER);
+    final username = textField.getText(TextFieldEnums.USERNAME_REGISTER);
+    final password = textField.getText(TextFieldEnums.PASSWORD_REGISTER);
+    final register = ref.read(authProvider.notifier);
 
     return Scaffold(
       body: Stack(
@@ -101,7 +94,8 @@ class _MailValidationScreenState extends ConsumerState<MailValidationScreen> {
                     // close the page button
                     IconButton(
                       onPressed: () {
-                        ref.invalidate(mailValidateProvider);
+                        ref.invalidate(authProvider);
+                        ref.invalidate(textFieldProvider);
                         NavigationService.instance.navigateToPageClear(
                           path: NavigateConstants.LOGIN,
                         );
@@ -134,12 +128,9 @@ class _MailValidationScreenState extends ConsumerState<MailValidationScreen> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(1),
                         ],
-                        onCodeChanged: (String code) {},
                         onSubmit: (String verificationCode) {
                           if (verificationCode.length == 4) {
-                            ref
-                                .read(mailValidateProvider.notifier)
-                                .updateOtpCode(verificationCode);
+                            register.updateOtpCode(verificationCode);
                           }
                         },
                       ),
@@ -165,9 +156,7 @@ class _MailValidationScreenState extends ConsumerState<MailValidationScreen> {
                         function: () {
                           if (_canResend) {
                             _onResendCode();
-                            debugPrint(ref
-                                .read(mailValidateProvider.notifier)
-                                .getCode);
+                            debugPrint(register.getCode);
                           }
                         },
                         text: AppStrings.of().sendNewCode!,
@@ -175,23 +164,29 @@ class _MailValidationScreenState extends ConsumerState<MailValidationScreen> {
                     ),
 
                     SizedBox(height: context.highValue),
-                    // Validate button
+                    // Complete button
                     Center(
                       child: CustomButton(
                         function: () async {
-                          if (ref
-                              .read(mailValidateProvider.notifier)
-                              .isValidOtp()) {
-                            ref
-                                .read(authProvider.notifier)
-                                .registerUser(mail, password, username);
+                          bool isRegistered =
+                              await register.register(mail, password, username);
+
+                          if (isRegistered) {
+                            ref.invalidate(authProvider);
+                            ref.invalidate(textFieldProvider);
+                            NavigationService.instance.navigateToPageClear(
+                              path: NavigateConstants.LOGIN,
+                            );
+                          } else {
+                            debugPrint(
+                                "❌ Registration failed. Check logs for more details.");
                           }
                         },
                         height: context.mediumValueSecond,
                         widht: context.mediumValueWidht,
                         text: AppStrings.of().confirm!,
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
