@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:duo_app/core/extensions/textfied_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
@@ -73,10 +74,10 @@ class _MailValidationScreenState extends ConsumerState<MailValidationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final textField = ref.read(textFieldProvider.notifier);
-    final mail = textField.getText(TextFieldEnums.MAIL_REGISTER);
-    final username = textField.getText(TextFieldEnums.USERNAME_REGISTER);
-    final password = textField.getText(TextFieldEnums.PASSWORD_REGISTER);
+    final textField = ref.watch(textFieldProvider);
+    final mail = textField.getTextByEnum(TextFieldEnums.MAIL_REGISTER);
+    final username = textField.getTextByEnum(TextFieldEnums.USERNAME_REGISTER);
+    final password = textField.getTextByEnum(TextFieldEnums.PASSWORD_REGISTER);
     final register = ref.read(authProvider.notifier);
 
     return Scaffold(
@@ -172,11 +173,11 @@ class _MailValidationScreenState extends ConsumerState<MailValidationScreen> {
                               await register.register(mail, password, username);
 
                           if (isRegistered) {
-                            ref.invalidate(authProvider);
-                            ref.invalidate(textFieldProvider);
                             NavigationService.instance.navigateToPageClear(
                               path: NavigateConstants.LOGIN,
                             );
+                            ref.invalidate(authProvider);
+                            ref.invalidate(textFieldProvider);
                           } else {
                             debugPrint(
                                 "❌ Registration failed. Check logs for more details.");

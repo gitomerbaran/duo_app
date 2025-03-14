@@ -1,6 +1,6 @@
 import 'package:duo_app/core/models/user/user_model.dart';
 import 'package:either_dart/either.dart';
-import '../../errors/failures/failure.dart';
+import '../../errors/failure.dart';
 
 /// Authentication service interface without FirebaseAuth.
 abstract class IAuthService {

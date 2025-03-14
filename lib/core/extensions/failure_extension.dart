@@ -1,21 +1,22 @@
-// core/errors/failure_extension.dart
 import '../constants/enums/failure_types.dart';
+import '../errors/failure_types.dart';
+import '../errors/failure.dart';
 
-extension FailureExtension on FailureType {
-  String get errorMessage {
+extension FailureTypeExtension on FailureType {
+  Failure failure({String? message}) {
     switch (this) {
-      case FailureType.userNotFound:
-        return "User not found!";
-      case FailureType.tokenError:
-        return "Invalid Token!";
-      case FailureType.verificationFailed:
-        return "Incorrect verify code!";
-      case FailureType.unexpectedError:
-        return "An unexpected error occurred!";
-      case FailureType.cacheError:
-        return "Cache Error";
+      case FailureType.versionError:
+        return const NetworkFailure();
+      case FailureType.versionInfo:
+        return const NetworkFailure();
+      case FailureType.networkError:
+        return const NetworkFailure();
       case FailureType.serverError:
-        return "Connection Error";
+        return ServerFailure(details: message);
+      case FailureType.userExists:
+        return const UserAlreadyExistsFailure();
+      default:
+        return UnknownFailure(message: message!);
     }
   }
 }

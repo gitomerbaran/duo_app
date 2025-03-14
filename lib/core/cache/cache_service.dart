@@ -1,6 +1,6 @@
 // core/cache/cache_service.dart
 import 'package:duo_app/core/constants/enums/cache_enums.dart';
-import 'package:duo_app/core/errors/failures/failure.dart';
+import 'package:duo_app/core/errors/failure.dart';
 import 'package:either_dart/either.dart';
 
 abstract class CacheService {

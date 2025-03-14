@@ -3,7 +3,7 @@ import 'package:either_dart/either.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../dependency_injection/di.dart';
-import '../../errors/failures/failure.dart';
+import '../../errors/failure.dart';
 import '../../services/auth/firebase_auth_services.dart';
 import '../providers/indicator_provider.dart';
 import '_base_notifier.dart';
@@ -54,12 +54,19 @@ class AuthNotifier extends BaseNotifier<AuthState> {
     final userExistsResult = await _isUserExists(email, username);
     bool result = userExistsResult.fold(
       (failure) {
-        debugPrint("User existence check failed: ${failure.errorMessage}");
+        debugPrint("User existence check failed: ");
         return false;
       },
       (userExists) {
-        _generateOtpCode();
-        return true;
+        if (userExists) {
+          // Kullanıcı veritabanında varsa false döndür
+          debugPrint("User already exists in DB.");
+          return false;
+        } else {
+          // Kullanıcı yoksa OTP oluştur ve true döndür
+          _generateOtpCode();
+          return true;
+        }
       },
     );
     _setLoading(false);
@@ -94,15 +101,10 @@ class AuthNotifier extends BaseNotifier<AuthState> {
   Future<Either<Failure, dynamic>> loginUser(
       String username, String password) async {
     _setLoading(true);
-
     final result =
         await authService.loginUser(username: username, password: password);
-
-    result.fold(
-      (failure) => debugPrint("Login Failed: ${failure.errorMessage}"),
-      (userModel) => debugPrint("Login Successful: ${userModel.toString()}"),
-    );
-
+     
+       
     _setLoading(false);
     return result;
   }

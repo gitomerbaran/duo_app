@@ -1,14 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:get_it/get_it.dart';
-import '../../firebase_options.dart';
 import '../cache/cache_service.dart';
 import '../cache/hive.dart';
 import '../controllers/notifiers/language_notifier.dart';
 import '../controllers/notifiers/theme_notifier.dart';
 import '../services/auth/firebase_auth_services.dart';
 import '../services/i_services.dart';
-import '../services/auth/i_auth_services.dart';
 import '../services/firebase_services.dart';
 
 /// **Global instance of GetIt for dependency injection**

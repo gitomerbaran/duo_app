@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:either_dart/either.dart';
-import '../errors/failure_types/failure_types.dart';
-import '../errors/failures/failure.dart';
+import '../errors/failure_types.dart';
+import '../errors/failure.dart';
 import 'i_services.dart';
 
 /// Firebase implementation of IServices.
@@ -38,12 +38,12 @@ class FirebaseService implements IServices {
             .get();
 
         if (!docSnapshot.exists) {
-          return Left(CacheFailure('Document not found: $endpoint'));
+          return Left(CacheFailure());
         }
 
         final data = docSnapshot.data();
         if (data == null) {
-          return Left(CacheFailure('Document is empty: $endpoint'));
+          return Left(CacheFailure());
         }
 
         final result = fromJson(data);
@@ -61,7 +61,7 @@ class FirebaseService implements IServices {
         return Right(result as T);
       }
     } catch (e) {
-      return Left(CacheFailure('Fetch error: ${e.toString()}'));
+      return Left(CacheFailure());
     }
   }
 
@@ -115,7 +115,9 @@ class FirebaseService implements IServices {
           } else if (method == 'PATCH') {
             await docRef.update(data);
           } else {
-            return Left(CacheFailure('Invalid HTTP method: $method'));
+            //            return Left(CacheFailure('Invalid HTTP method: $method'));
+
+            return Left(CacheFailure());
           }
         } else {
           await docRef.set(data);
@@ -125,7 +127,9 @@ class FirebaseService implements IServices {
         final newData = updatedSnapshot.data();
 
         if (newData == null) {
-          return Left(CacheFailure('No data after operation: $endpoint'));
+          //          return Left(CacheFailure('No data after operation: $endpoint'));
+
+          return Left(CacheFailure());
         }
 
         final result = fromJson(newData);
@@ -138,14 +142,17 @@ class FirebaseService implements IServices {
         final newData = newSnapshot.data();
 
         if (newData == null) {
-          return Left(CacheFailure('New document data not available: $endpoint'));
+        //  return Left(CacheFailure('New document data not available: $endpoint'));
+          return Left(CacheFailure());
         }
 
         final result = fromJson(newData);
         return Right(result);
       }
     } catch (e) {
-      return Left(CacheFailure('Send error: ${e.toString()}'));
+            return Left(CacheFailure());
+
+   //   return Left(CacheFailure('Send error: ${e.toString()}'));
     }
   }
 
@@ -154,7 +161,9 @@ class FirebaseService implements IServices {
     final parsed = _parseEndpoint(endpoint);
 
     if (parsed['docId']!.isEmpty) {
-      return Left(CacheFailure('Document ID must be specified for deletion: $endpoint'));
+      //      return Left(CacheFailure('Document ID must be specified for deletion: $endpoint'));
+
+      return Left(CacheFailure());
     }
 
     try {
@@ -162,7 +171,9 @@ class FirebaseService implements IServices {
       final docSnapshot = await docRef.get();
 
       if (!docSnapshot.exists) {
-        return Left(CacheFailure('Document not found: $endpoint'));
+//                return Left(CacheFailure('Document not found: $endpoint'));
+
+        return Left(CacheFailure());
       }
 
       final oldData = docSnapshot.data();
@@ -170,7 +181,8 @@ class FirebaseService implements IServices {
 
       return Right(oldData ?? {});
     } catch (e) {
-      return Left(CacheFailure('Delete error: ${e.toString()}'));
+      //return Left(CacheFailure('Delete error: ${e.toString()}'));
+      return Left(CacheFailure());
     }
   }
 

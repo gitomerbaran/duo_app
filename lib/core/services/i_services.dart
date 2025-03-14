@@ -1,5 +1,5 @@
 import 'package:either_dart/either.dart';
-import '../errors/failures/failure.dart';
+import '../errors/failure.dart';
 
 /// Common service interface for both Firebase and other APIs.
 /// [T] → Represents the type of data returned on a successful operation.

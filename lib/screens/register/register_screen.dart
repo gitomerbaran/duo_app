@@ -1,4 +1,5 @@
 import 'package:duo_app/core/controllers/providers/auth_provider.dart';
+import 'package:duo_app/core/extensions/textfied_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/constants/enums/text_field_enums.dart';
@@ -21,15 +22,16 @@ class RegisterScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     bool passwordButton = ref.watch(showPassword);
     bool repasswordButton = ref.watch(showRePassword);
+    
     String username = ref
-        .read(textFieldProvider.notifier)
-        .getText(TextFieldEnums.USERNAME_REGISTER);
+        .watch(textFieldProvider)
+        .getTextByEnum(TextFieldEnums.USERNAME_REGISTER);
     String email = ref
-        .read(textFieldProvider.notifier)
-        .getText(TextFieldEnums.MAIL_REGISTER);
+        .watch(textFieldProvider)
+        .getTextByEnum(TextFieldEnums.MAIL_REGISTER);
     String password = ref
-        .read(textFieldProvider.notifier)
-        .getText(TextFieldEnums.PASSWORD_REGISTER);
+        .watch(textFieldProvider)
+        .getTextByEnum(TextFieldEnums.PASSWORD_REGISTER);
 
     return Scaffold(
       body: Stack(

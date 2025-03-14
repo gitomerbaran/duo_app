@@ -5,8 +5,8 @@ import 'package:either_dart/either.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../constants/enums/cache_enums.dart';
-import '../errors/failure_types/failure_types.dart';
-import '../errors/failures/failure.dart';
+import '../errors/failure_types.dart';
+import '../errors/failure.dart';
 import 'cache_service.dart';
 
 class HiveSecureService implements CacheService {
@@ -51,12 +51,11 @@ class HiveSecureService implements CacheService {
   Future<Either<Failure, T>> _safeCall<T>(Future<T> Function() action) async {
     try {
       if (_cacheBox == null) {
-        return Left(CacheFailure("Cache başlatılmadı"));
       }
 
       return Right(await action());
     } catch (e) {
-      return Left(CacheFailure("Cache hatası: $e"));
+      return Left(CacheFailure());
     }
   }
 

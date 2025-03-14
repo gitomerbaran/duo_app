@@ -1,23 +1,17 @@
-import 'package:duo_app/core/constants/enums/text_field_enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../constants/enums/text_field_enums.dart';
 import 'providers/text_fields_provider.dart';
 import '../extensions/string_extension.dart';
-
+import '../extensions/textfied_extension.dart';
 class AuthControl {
   bool registerControl(WidgetRef ref) {
-    String username = ref
-        .read(textFieldProvider.notifier)
-        .getText(TextFieldEnums.USERNAME_REGISTER);
-    String mail = ref
-        .read(textFieldProvider.notifier)
-        .getText(TextFieldEnums.MAIL_REGISTER);
-    String password = ref
-        .read(textFieldProvider.notifier)
-        .getText(TextFieldEnums.PASSWORD_REGISTER);
-    String rePassword = ref
-        .read(textFieldProvider.notifier)
-        .getText(TextFieldEnums.REPASSWORD_REGISTER);
+   final textFieldState = ref.watch(textFieldProvider);
+
+String username = textFieldState.getTextByEnum(TextFieldEnums.USERNAME_REGISTER);
+String mail = textFieldState.getTextByEnum(TextFieldEnums.MAIL_REGISTER);
+String password = textFieldState.getTextByEnum(TextFieldEnums.PASSWORD_REGISTER);
+String rePassword = textFieldState.getTextByEnum(TextFieldEnums.REPASSWORD_REGISTER);
     
     /// Check if the username is empty or less than 3 characters
     if (username.isEmpty || username.length < 3) {

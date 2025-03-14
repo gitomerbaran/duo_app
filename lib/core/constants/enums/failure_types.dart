@@ -1,8 +1,11 @@
 enum FailureType {
-  userNotFound,
-  tokenError,
-  verificationFailed,
-  unexpectedError,
+  serverError,
   cacheError,
-  serverError
+  networkError,
+  alreadyRegistered,
+  unexpectedError,
+  userExists,
+  validationError,
+  versionInfo,
+  versionError
 }

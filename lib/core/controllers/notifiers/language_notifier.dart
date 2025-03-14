@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../cache/hive.dart';
 import '../../constants/enums/cache_enums.dart';
 import '../../constants/enums/language_code_enums.dart';
-import '../../errors/failure_types/failure_types.dart';
+import '../../errors/failure_types.dart';
 import '../../localization/_localization_exports.dart';
 import '../../models/lang/language_model.dart';
 
@@ -22,7 +22,7 @@ class LanguageNotifier extends StateNotifier<LanguageSettings> {
     final languageSettingsEither =
         await _hiveSecureService.getData(CacheEnums.LANGUAGE_SETTINGS);
 
-     languageSettingsEither.fold(
+    languageSettingsEither.fold(
       (failure) async => await _setDefaultLanguageSettings(deviceLocalLanguage),
       (data) => _languageSettings = LanguageSettings.fromJson(data),
     );
@@ -50,9 +50,7 @@ class LanguageNotifier extends StateNotifier<LanguageSettings> {
         CacheEnums.LANGUAGE_SETTINGS, _languageSettings.toJson());
 
     saveLanguageEither.fold(
-      (failure) {
-        LanguageFailure("Language Error");
-      }, // Hata işleme (UI'da bildirim yapılabilir)
+      (failure) {},
       (success) => _createSupportedLanguageMap(),
     );
 
@@ -84,4 +82,3 @@ class LanguageNotifier extends StateNotifier<LanguageSettings> {
 
   LanguageCodeEnum getLanguageCode() => _languageSettings.languageCode;
 }
-

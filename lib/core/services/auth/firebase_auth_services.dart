@@ -1,10 +1,12 @@
 import 'package:bcrypt/bcrypt.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:duo_app/core/constants/enums/failure_types.dart';
+import 'package:duo_app/core/extensions/failure_extension.dart';
 import 'package:duo_app/core/models/user/user_model.dart';
 import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
-import '../../errors/failure_types/failure_types.dart';
-import '../../errors/failures/failure.dart';
+import '../../errors/failure_types.dart';
+import '../../errors/failure.dart';
 import 'i_auth_services.dart';
 
 class AuthService implements IAuthService {
@@ -32,7 +34,7 @@ class AuthService implements IAuthService {
           .get();
 
       if (userCheck.docs.isNotEmpty) {
-        return Left(CacheFailure('Email or Username is already taken'));
+        return Left(FailureType.serverError.failure(message: "Sunucu hatası!"));
       }
 
       // Hash the password using bcrypt.
@@ -51,7 +53,8 @@ class AuthService implements IAuthService {
 
       return Right(docRef.id);
     } catch (e) {
-      return Left(CacheFailure('Registration failed: ${e.toString()}'));
+      //  return Left(CacheFailure('Registration failed: ${e.toString()}'));
+      return Left(CacheFailure());
     }
   }
 
@@ -69,7 +72,8 @@ class AuthService implements IAuthService {
           await usersCollection.where('username', isEqualTo: username).get();
 
       if (querySnapshot.docs.isEmpty) {
-        return Left(CacheFailure('Invalid credentials'));
+        return Left(ServerFailure(details: "Invalid credentials"));
+        //  return Left(CacheFailure('Invalid credentials'));
       }
 
       final doc = querySnapshot.docs.first;
@@ -77,7 +81,9 @@ class AuthService implements IAuthService {
 
       // Validate password using bcrypt.
       if (!BCrypt.checkpw(password, userData['password'])) {
-        return Left(CacheFailure('Invalid credentials'));
+        //        return Left(CacheFailure('Invalid credentials'));
+
+        return Left(ServerFailure(details: "Invalid credentials"));
       }
 
       // Convert Firestore data to UserModel.
@@ -89,7 +95,8 @@ class AuthService implements IAuthService {
       debugPrint("Stored hash: ${userData['password']}");
       return Right(user);
     } catch (e) {
-      return Left(CacheFailure('Login failed: ${e.toString()}'));
+      //  return Left(CacheFailure('Login failed: ${e.toString()}'));
+      return Left(ServerFailure(details: "Login Failed"));
     }
   }
 
@@ -102,13 +109,16 @@ class AuthService implements IAuthService {
           await usersCollection.where('username', isEqualTo: username).get();
 
       if (querySnapshot.docs.isEmpty) {
-        return Left(CacheFailure('User not found'));
+        //user not found
+        return Left(CacheFailure());
       }
 
       return Right(UserModel.fromMap(querySnapshot.docs.first.data()));
     } catch (e) {
       return Left(
-          CacheFailure('Failed to retrieve user data: ${e.toString()}'));
+          //          CacheFailure('Failed to retrieve user data: ${e.toString()}'));
+
+          CacheFailure());
     }
   }
 
@@ -128,7 +138,8 @@ class AuthService implements IAuthService {
       return Right(userCheck.docs.isNotEmpty);
     } catch (e) {
       return Left(
-          ServerFailure("Error checking user existence: ${e.toString()}"));
+          //Error checking user existence:
+          ServerFailure(details: e.toString()));
     }
   }
 
