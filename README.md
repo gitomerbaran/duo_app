@@ -62,16 +62,7 @@ This repository showcases:
 
 ---
 
-## 📸 Screenshots
 
-*Note: UI is still in early development. Below are sample screenshots of current screens.*
-
-<img src="https://github.com/user-attachments/assets/3a820719-fd36-4649-828f-c605a8dcec93" width="70%"/>
-<img src="https://github.com/user-attachments/assets/525b6ab1-f1e1-4eb1-9e07-376af706b411" width="70%"/>
-<img src="https://github.com/user-attachments/assets/e645d1c4-11c9-4f8f-b154-d6d682eb812d" width="70%"/>
-<img src="https://github.com/user-attachments/assets/dd3b7a77-ab70-4d93-a64a-7ec234a7060b" width="70%"/>
-
----
 
 ## 🚀 Getting Started
 
