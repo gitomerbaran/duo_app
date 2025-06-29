@@ -36,18 +36,18 @@ This repository showcases:
 ---
 
 ## 🗂️ Project Structure Overview
-lib/
-├── core/ # App-wide configs, constants, services
-│ ├── initialize/firebase_initialize.dart
-│ ├── navigation/navigation_service.dart
-│ └── constants/
-├── features/ # App features (e.g. auth)
-│ └── auth/
-│ ├── view/
-│ └── ... (planned: services, providers)
-└── product/ # Shared widgets, design system, theme
-├── design/
-└── theme/
+- lib/
+- ├── core/ # App-wide configs, constants, services
+- │ ├── initialize/firebase_initialize.dart
+- │ ├── navigation/navigation_service.dart
+- │ └── constants/
+- ├── features/ # App features (e.g. auth)
+- │ └── auth/
+- │ ├── view/
+- │ └── ... (planned: services, providers)
+- └── product/ # Shared widgets, design system, theme
+- ├── design/
+- └── theme/
 
 ---
 
